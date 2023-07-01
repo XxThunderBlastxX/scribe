@@ -58,5 +58,15 @@ class AppTheme {
         ),
       ),
     ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: Colors.black,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6.r),
+      ),
+      elevation: 5,
+      behavior: SnackBarBehavior.floating,
+      closeIconColor: Colors.white,
+      insetPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+    ),
   );
 }
