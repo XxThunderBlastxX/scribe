@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/common/widgets/styled_alert_dialog.dart';
 import '../../app/common/widgets/styled_list_tile.dart';
-import '../../app/router/routes.dart';
+import '../../app/router/router.dart';
 import '../../app/theme.dart';
 import 'bloc/home_bloc.dart';
 
@@ -64,6 +64,10 @@ class HomeScreen extends StatelessWidget {
                   itemCount: 5,
                   itemBuilder: (context, i) => StyledListTile(
                     title: 'Item $i',
+                    onTap: () => GoRouter.of(context).pushNamed(
+                      AppRouterName.document,
+                      pathParameters: {'id': '$i'},
+                    ),
                   ),
                 ),
               ),

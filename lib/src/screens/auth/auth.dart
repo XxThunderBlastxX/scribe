@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/common/utils/styled_snackbar.dart';
-import '../../app/router/routes.dart';
+import '../../app/router/router.dart';
 import '../../app/theme.dart';
 import 'bloc/auth_bloc.dart';
 
@@ -19,7 +19,7 @@ class AuthScreen extends StatelessWidget {
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccessState) {
-              GoRouter.of(context).replace(AppRouterPath.home);
+              GoRouter.of(context).replace(AppRouterPath.dashboard);
             } else if (state is AuthFailureState) {
               context.styledSnackBar(state.failure.message);
               context.read<AuthBloc>().add(AuthInitialEvent());

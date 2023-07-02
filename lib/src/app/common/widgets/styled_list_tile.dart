@@ -3,8 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StyledListTile extends StatelessWidget {
   final String title;
+  final VoidCallback onTap;
 
-  const StyledListTile({super.key, required this.title});
+  const StyledListTile({super.key, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class StyledListTile extends StatelessWidget {
           Icons.edit_document,
           color: Color(0xFFFFFFFF),
         ),
-        onTap: () {},
+        onTap: onTap,
       ),
     );
   }

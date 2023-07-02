@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'router/routes.dart';
+import 'router/router.dart';
 import 'theme.dart';
 
 class MyApp extends StatelessWidget {
