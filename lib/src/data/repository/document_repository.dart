@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 
 import '../../app/common/utils/uuid.dart';
 import '../../model/failure/failure.dart';
@@ -19,7 +20,7 @@ class DocumentRepository implements IDocument {
         'id': GenId.instance.getUid(),
         'userId': FirebaseAuth.instance.currentUser!.uid,
         'title': 'Untitled',
-        'data': [],
+        'data': QuillController.basic().document.toDelta().toJson(),
         'updatedAt': DateTime.now().toIso8601String(),
         'createdAt': DateTime.now().toIso8601String(),
       };
@@ -36,9 +37,15 @@ class DocumentRepository implements IDocument {
   }
 
   @override
-  getDocumentById(String id) {
-    // TODO: implement getDocumentById
-    throw UnimplementedError();
+  Future<QuerySnapshot<Map<String, dynamic>>?> getDocumentById(
+    String id,
+  ) async {
+    try {
+      final doc = await _collectionRef.where('id', isEqualTo: id).get();
+      return doc;
+    } catch (e) {
+      return throw Failure(message: e.toString());
+    }
   }
 
   @override

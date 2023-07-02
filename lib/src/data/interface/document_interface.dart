@@ -7,7 +7,7 @@ abstract class IDocument {
 
   Future<QuerySnapshot<Map<String, dynamic>>?> getDocuments();
 
-  getDocumentById(String id);
+  Future<QuerySnapshot<Map<String, dynamic>>?> getDocumentById(String id);
 
   Future<Failure?> updateDocument(String id, String data);
 }

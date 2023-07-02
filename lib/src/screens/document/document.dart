@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scribe/src/app/theme.dart';
+import 'package:scribe/src/screens/document/bloc/document_bloc.dart';
+
+import '../../app/theme.dart';
 
 class DocumentScreen extends StatefulWidget {
   final String id;
@@ -14,87 +17,71 @@ class DocumentScreen extends StatefulWidget {
 }
 
 class _DocumentScreenState extends State<DocumentScreen> {
-  late quill.QuillController _controller;
-
-  @override
-  void initState() {
-    _controller = quill.QuillController.basic();
-    updateDocumentData();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void updateDocumentData() {
-    _controller.document.changes.listen((event) {
-      if (quill.ChangeSource.LOCAL == event.source) {
-        Map<String, dynamic> docMap = {
-          'delta': event.change.toJson(),
-        };
-
-        print(docMap);
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Document',
-          style: AppTheme.instance.theme.textTheme.labelMedium,
-        ),
-        leading: IconButton(
-          onPressed: () => context.pop(),
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            size: 23.w,
-            weight: 0.1,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: SizedBox(
-        width: 1.sw,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            8.verticalSpace,
-            quill.QuillToolbar.basic(
-              controller: _controller,
-              toolbarIconSize: 17.5.w,
-              iconTheme: quill.QuillIconTheme(
-                borderRadius: 8.r,
+    return BlocProvider(
+      create: (context) =>
+          DocumentBloc()..add(DocumentInitialEvent(id: widget.id)),
+      child: BlocConsumer<DocumentBloc, DocumentState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                context.read<DocumentBloc>().docTitle,
+                style: AppTheme.instance.theme.textTheme.labelMedium,
               ),
-              toolbarSectionSpacing: 6.w,
-              showFontSize: false,
-              showFontFamily: false,
-              showSearchButton: false,
-            ),
-            10.verticalSpace,
-            Expanded(
-              child: SizedBox(
-                width: 0.86.sw,
-                child: Card(
+              leading: IconButton(
+                onPressed: () => context.pop(),
+                icon: Icon(
+                  Icons.arrow_back_ios_new,
+                  size: 23.w,
+                  weight: 0.1,
                   color: Colors.white,
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
-                    child: quill.QuillEditor.basic(
-                      controller: _controller,
-                      readOnly: false,
-                    ),
-                  ),
                 ),
               ),
             ),
-          ],
-        ),
+            body: SizedBox(
+              width: 1.sw,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  8.verticalSpace,
+                  quill.QuillToolbar.basic(
+                    controller: context.read<DocumentBloc>().controller,
+                    toolbarIconSize: 17.5.w,
+                    iconTheme: quill.QuillIconTheme(
+                      borderRadius: 8.r,
+                    ),
+                    toolbarSectionSpacing: 6.w,
+                    showFontSize: false,
+                    showFontFamily: false,
+                    showSearchButton: false,
+                  ),
+                  10.verticalSpace,
+                  Expanded(
+                    child: SizedBox(
+                      width: 0.86.sw,
+                      child: Card(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.w, vertical: 25.h),
+                          child: quill.QuillEditor.basic(
+                            controller: context.read<DocumentBloc>().controller,
+                            readOnly: false,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
