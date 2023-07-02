@@ -13,3 +13,8 @@ class HomeSignOutEvent extends HomeEvent {
   @override
   List<Object> get props => [];
 }
+
+class CreateNewDocumentEvent extends HomeEvent {
+  @override
+  List<Object> get props => [];
+}

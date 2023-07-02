@@ -19,6 +19,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
   @override
   void initState() {
     _controller = quill.QuillController.basic();
+    updateDocumentData();
     super.initState();
   }
 
@@ -26,6 +27,18 @@ class _DocumentScreenState extends State<DocumentScreen> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void updateDocumentData() {
+    _controller.document.changes.listen((event) {
+      if (quill.ChangeSource.LOCAL == event.source) {
+        Map<String, dynamic> docMap = {
+          'delta': event.change.toJson(),
+        };
+
+        print(docMap);
+      }
+    });
   }
 
   @override

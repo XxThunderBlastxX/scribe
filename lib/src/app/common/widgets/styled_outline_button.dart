@@ -12,7 +12,7 @@ class StyledOutlineButton extends OutlinedButton {
           onPressed: onPressed,
           child: Text(
             label,
-            style: AppTheme.instance.theme.textTheme.bodySmall,
+            style: AppTheme.instance.theme.textTheme.labelSmall,
           ),
           style: OutlinedButton.styleFrom(
             padding: EdgeInsets.symmetric(

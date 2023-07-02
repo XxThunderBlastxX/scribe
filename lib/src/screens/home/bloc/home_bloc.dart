@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scribe/src/data/repository/document_repository.dart';
 
 import '../../../data/repository/auth_repository.dart';
 import '../../../data/services/data_service.dart';
@@ -14,6 +15,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeSignOutEvent>((event, emit) async {
       await dataService.get<AuthRepository>().signOut();
       emit(HomeSignOutState());
+    });
+
+    on<CreateNewDocumentEvent>((event, emit) async {
+      emit(HomeLoadingState());
+      await dataService.get<DocumentRepository>().createDocument();
+      emit(HomeInitialState());
     });
   }
 }

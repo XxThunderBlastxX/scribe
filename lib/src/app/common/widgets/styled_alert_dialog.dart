@@ -14,7 +14,7 @@ extension StyledAlertDialog on BuildContext {
         builder: (context) => AlertDialog(
           title: Text(
             'Are you sure you want to sign out?',
-            style: AppTheme.instance.theme.textTheme.bodySmall!.copyWith(
+            style: AppTheme.instance.theme.textTheme.labelSmall!.copyWith(
               fontSize: 14.sp,
             ),
           ),
@@ -43,7 +43,7 @@ extension StyledAlertDialog on BuildContext {
                 },
                 child: Text(
                   'Yes',
-                  style: AppTheme.instance.theme.textTheme.bodySmall!.copyWith(
+                  style: AppTheme.instance.theme.textTheme.labelSmall!.copyWith(
                     color: const Color(0xFFFFB5A7),
                   ),
                 ),
