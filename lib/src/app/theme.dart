@@ -32,7 +32,7 @@ class AppTheme {
       ),
       bodyMedium: GoogleFonts.poppins(
         fontSize: 20.sp,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w700,
         height: 1.25,
         color: const Color(0xFFF8FEFF),
       ),
@@ -74,6 +74,15 @@ class AppTheme {
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(15.r),
         ),
+      ),
+    ),
+    listTileTheme: ListTileThemeData(
+      tileColor: const Color(0xFFFFB5A7),
+      enableFeedback: true,
+      style: ListTileStyle.list,
+      selectedTileColor: const Color(0xFFFFB5A7),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.r),
       ),
     ),
   );

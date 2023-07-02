@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scribe/src/app/common/widgets/styled_list_tile.dart';
 
 import '../../app/common/widgets/styled_alert_dialog.dart';
 import '../../app/router/routes.dart';
@@ -55,9 +57,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              body: Center(
-                child: Text(
-                  'Home',
+              body: Padding(
+                padding: EdgeInsets.only(top: 8.r),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: 5,
+                  itemBuilder: (context, i) => StyledListTile(
+                    title: 'Item $i',
+                  ),
                 ),
               ),
             );
