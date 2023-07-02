@@ -28,16 +28,34 @@ class AppTheme {
         fontSize: 24.sp,
         fontWeight: FontWeight.w700,
         height: 1.25,
-        color: const Color(0xFFF8FEFF),
+        color: Colors.black,
       ),
       bodyMedium: GoogleFonts.poppins(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.normal,
+        height: 1.25,
+        color: Colors.black,
+      ),
+      bodySmall: GoogleFonts.poppins(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.normal,
+        height: 1.25,
+        color: Colors.black,
+      ),
+      labelLarge: GoogleFonts.poppins(
+        fontSize: 24.sp,
+        fontWeight: FontWeight.w700,
+        height: 1.25,
+        color: const Color(0xFFF8FEFF),
+      ),
+      labelMedium: GoogleFonts.poppins(
         fontSize: 20.sp,
         fontWeight: FontWeight.w700,
         height: 1.25,
         color: const Color(0xFFF8FEFF),
       ),
-      bodySmall: GoogleFonts.poppins(
-        fontSize: 14.sp,
+      labelSmall: GoogleFonts.poppins(
+        fontSize: 13.sp,
         fontWeight: FontWeight.w700,
         height: 1.25,
         color: const Color(0xFFF8FEFF),

@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               appBar: AppBar(
                 title: Text(
                   userName ?? 'Welcome',
-                  style: AppTheme.instance.theme.textTheme.bodyMedium,
+                  style: AppTheme.instance.theme.textTheme.labelMedium,
                 ),
                 leading: Padding(
                   padding: const EdgeInsets.only(left: 8.0),

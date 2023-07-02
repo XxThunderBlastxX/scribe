@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:scribe/src/app/theme.dart';
 
 class StyledListTile extends StatelessWidget {
   final String title;
@@ -15,7 +16,8 @@ class StyledListTile extends StatelessWidget {
         horizontal: 16.w,
       ),
       child: ListTile(
-        title: Text(title),
+        title:
+            Text(title, style: AppTheme.instance.theme.textTheme.labelMedium),
         leading: const Icon(
           Icons.edit_document,
           color: Color(0xFFFFFFFF),
