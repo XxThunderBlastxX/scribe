@@ -21,7 +21,7 @@ class AuthScreen extends StatelessWidget {
             if (state is AuthSuccessState) {
               GoRouter.of(context).replace(AppRouterPath.home);
             } else if (state is AuthFailureState) {
-              context.styledSnackBar('Opps!!! Something went wrong.');
+              context.styledSnackBar(state.failure.message);
               context.read<AuthBloc>().add(AuthInitialEvent());
             }
           },

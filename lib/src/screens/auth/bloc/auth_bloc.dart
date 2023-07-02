@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/repository/auth_repository.dart';
 import '../../../data/services/data_service.dart';
+import '../../../model/failure/failure.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -13,11 +14,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on((event, emit) => emit(AuthInitialState()));
 
     on<AuthSignInEvent>((event, emit) async {
-      final UserCredential userCredential =
-          await dataService.get<AuthRepository>().googleSignIn();
+      emit(AuthLoadingState());
+      final (UserCredential?, Failure?) _,
+          failure = await dataService.get<AuthRepository>().googleSignIn();
 
-      if (userCredential.user == null) {
-        emit(AuthFailureState());
+      if (failure.$2 != null) {
+        emit(AuthFailureState(failure: failure.$2!));
       } else {
         emit(AuthSuccessState());
       }
