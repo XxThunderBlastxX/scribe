@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scribe/src/app/common/widgets/styled_list_tile.dart';
 
 import '../../app/common/widgets/styled_alert_dialog.dart';
+import '../../app/common/widgets/styled_list_tile.dart';
 import '../../app/router/routes.dart';
 import '../../app/theme.dart';
 import 'bloc/home_bloc.dart';
