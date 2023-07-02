@@ -68,5 +68,13 @@ class AppTheme {
       closeIconColor: Colors.white,
       insetPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
     ),
+    appBarTheme: AppBarTheme(
+      toolbarHeight: 55.h,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(15.r),
+        ),
+      ),
+    ),
   );
 }

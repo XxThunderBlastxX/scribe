@@ -1,16 +1,70 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:scribe/src/app/theme.dart';
+
+import '../../app/router/routes.dart';
+import 'bloc/home_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Welcome'),
-      ),
-      body: const Center(
-        child: Text('Home'),
+    final String? userName = FirebaseAuth.instance.currentUser?.displayName;
+
+    Future<void> signOut(BuildContext context) async {
+      context.read<HomeBloc>().add(HomeSignOutEvent());
+    }
+
+    return BlocProvider(
+      create: (context) => HomeBloc(),
+      child: BlocConsumer<HomeBloc, HomeState>(
+        listener: (context, state) {
+          if (state is HomeSignOutState) {
+            GoRouter.of(context).replace(AppRouterPath.auth);
+          }
+        },
+        builder: (context, state) {
+          if (state is HomeInitialState) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'Welcome ${userName ?? ''}',
+                  style: AppTheme.instance.theme.textTheme.bodyMedium,
+                ),
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        FirebaseAuth.instance.currentUser?.photoURL ?? ''),
+                  ),
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () => signOut(context),
+                    icon: const Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              body: Center(
+                child: Text(
+                  'Home',
+                ),
+              ),
+            );
+          } else {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        },
       ),
     );
   }

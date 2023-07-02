@@ -3,7 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../repository/auth_repository.dart';
 
-final GetIt dataService = GetIt.instance();
+GetIt dataService = GetIt.instance;
 
 void setupDataService() {
   dataService.registerLazySingleton(
