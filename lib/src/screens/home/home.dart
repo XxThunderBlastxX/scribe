@@ -2,9 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scribe/src/app/theme.dart';
 
+import '../../app/common/widgets/styled_alert_dialog.dart';
 import '../../app/router/routes.dart';
+import '../../app/theme.dart';
 import 'bloc/home_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,7 +16,10 @@ class HomeScreen extends StatelessWidget {
     final String? userName = FirebaseAuth.instance.currentUser?.displayName;
 
     Future<void> signOut(BuildContext context) async {
-      context.read<HomeBloc>().add(HomeSignOutEvent());
+      context.styledAlertDialog(onYes: () {
+        context.read<HomeBloc>().add(HomeSignOutEvent());
+        GoRouter.of(context).replace(AppRouterPath.auth);
+      });
     }
 
     return BlocProvider(
@@ -31,7 +35,7 @@ class HomeScreen extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'Welcome ${userName ?? ''}',
+                  userName ?? 'Welcome',
                   style: AppTheme.instance.theme.textTheme.bodyMedium,
                 ),
                 leading: Padding(
