@@ -9,5 +9,7 @@ abstract class IDocument {
 
   Future<QuerySnapshot<Map<String, dynamic>>?> getDocumentById(String id);
 
-  Future<Failure?> updateDocument(String id, String data);
+  Stream<DocumentSnapshot<Map<String, dynamic>>> streamDocument(String id);
+
+  void updateDocument(String id, List<dynamic> data);
 }

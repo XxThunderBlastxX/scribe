@@ -16,8 +16,10 @@ class DocumentRepository implements IDocument {
   @override
   Future<Failure?> createDocument() async {
     try {
+      final id = GenId.instance.getUid();
+
       Map<String, dynamic> data = {
-        'id': GenId.instance.getUid(),
+        'id': id,
         'userId': FirebaseAuth.instance.currentUser!.uid,
         'title': 'Untitled',
         'data': QuillController.basic().document.toDelta().toJson(),
@@ -25,7 +27,7 @@ class DocumentRepository implements IDocument {
         'createdAt': DateTime.now().toIso8601String(),
       };
 
-      await _collectionRef.doc(GenId.instance.getUid()).set(data).onError(
+      await _collectionRef.doc(id).set(data).onError(
             (error, stackTrace) => throw Exception(error),
           );
       return null;
@@ -67,8 +69,15 @@ class DocumentRepository implements IDocument {
   }
 
   @override
-  Future<Failure?> updateDocument(String id, String data) {
-    // TODO: implement updateDocument
-    throw UnimplementedError();
+  Stream<DocumentSnapshot<Map<String, dynamic>>> streamDocument(String id) {
+    return _collectionRef.doc(id).snapshots();
+  }
+
+  @override
+  void updateDocument(String id, List<dynamic> data) {
+    _collectionRef.doc(id).update({
+      'data': data,
+      'updatedAt': DateTime.now().toIso8601String(),
+    });
   }
 }

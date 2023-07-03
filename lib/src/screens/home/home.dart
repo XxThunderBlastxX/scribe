@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scribe/src/data/repository/document_repository.dart';
-import 'package:scribe/src/data/services/data_service.dart';
 
 import '../../app/common/widgets/styled_alert_dialog.dart';
 import '../../app/common/widgets/styled_list_tile.dart';
 import '../../app/router/router.dart';
 import '../../app/theme.dart';
+import '../../data/repository/document_repository.dart';
+import '../../data/services/data_service.dart';
 import 'bloc/home_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -58,6 +58,7 @@ class HomeScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(top: 8.r),
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
@@ -83,20 +84,33 @@ class HomeScreen extends StatelessWidget {
                   endIndent: 14.w,
                   color: const Color(0xFFFFB5A7),
                 ),
-                SizedBox(
-                  height: 0.8.sh,
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: snapshot?.docs.length,
-                    itemBuilder: (context, i) => StyledListTile(
-                      title: snapshot!.docs[i]['title'],
-                      onTap: () => GoRouter.of(context).pushNamed(
-                        AppRouterName.document,
-                        pathParameters: {'id': snapshot.docs[i]['id']},
+                snapshot!.docs.isEmpty
+                    ? Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 18.w,
+                            vertical: 20.h,
+                          ),
+                          child: Text(
+                            'Click on Add Document to create a new document.',
+                            style: AppTheme.instance.theme.textTheme.bodyMedium,
+                          ),
+                        ),
+                      )
+                    : SizedBox(
+                        height: 0.8.sh,
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: snapshot.docs.length,
+                          itemBuilder: (context, i) => StyledListTile(
+                            title: snapshot.docs[i]['title'],
+                            onTap: () => GoRouter.of(context).pushNamed(
+                              AppRouterName.document,
+                              pathParameters: {'id': snapshot.docs[i]['id']},
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:scribe/src/app/theme.dart';
+
+import '../../theme.dart';
 
 class StyledListTile extends StatelessWidget {
   final String title;

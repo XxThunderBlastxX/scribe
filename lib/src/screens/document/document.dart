@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scribe/src/screens/document/bloc/document_bloc.dart';
 
 import '../../app/theme.dart';
+import 'bloc/document_bloc.dart';
 
 class DocumentScreen extends StatefulWidget {
   final String id;
@@ -22,10 +22,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
     return BlocProvider(
       create: (context) =>
           DocumentBloc()..add(DocumentInitialEvent(id: widget.id)),
-      child: BlocConsumer<DocumentBloc, DocumentState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      child: BlocBuilder<DocumentBloc, DocumentState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(

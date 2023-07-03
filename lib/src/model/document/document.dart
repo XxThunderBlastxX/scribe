@@ -8,7 +8,7 @@ class DocumentModel with _$DocumentModel {
   const factory DocumentModel({
     required String id,
     required String title,
-    required List data,
+    required List<dynamic> data,
     required String userId,
     required DateTime createdAt,
     required DateTime updatedAt,
