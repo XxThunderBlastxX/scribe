@@ -4,7 +4,7 @@ description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-version: 1.0.0+1
+version: 0.1.1
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -28,6 +28,8 @@ dependencies:
   get_it: ^7.6.0
   flutter_quill: ^7.2.10
   uuid: ^3.0.7
+  flutter_native_splash: ^2.3.1
+  icons_launcher: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -38,10 +40,26 @@ dev_dependencies:
   json_serializable: ^6.7.1
   logger: ^1.4.0
 
+flutter_native_splash:
+  color: "#F8EDEB"
+  image: "assets/icon/scribe.png"
+  android_12:
+    image: "assets/icon/scribe.png"
+
+icons_launcher:
+  image_path: "assets/icon/scribe.png"
+  platforms:
+    android:
+      enable: true
+      adaptive_background_image: "assets/icon/scribe_logo_bg.png"
+      adaptive_foreground_image: "assets/icon/scribe_logo_fg.png"
+
+
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/icon/
   # fonts:
   #   - family: Schyler
   #     fonts:

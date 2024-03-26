@@ -30,6 +30,7 @@ class HomeScreen extends StatelessWidget {
     Widget homeUi(
       QuerySnapshot<Map<String, dynamic>>? snapshot,
       VoidCallback onTapCreateNewDoc,
+      BuildContext context,
     ) {
       return Scaffold(
         appBar: AppBar(
@@ -139,10 +140,11 @@ class HomeScreen extends StatelessWidget {
                   );
                 } else {
                   return homeUi(
-                      snapshot.data,
-                      () => context
-                          .read<HomeBloc>()
-                          .add(CreateNewDocumentEvent()));
+                    snapshot.data,
+                    () =>
+                        context.read<HomeBloc>().add(CreateNewDocumentEvent()),
+                    context,
+                  );
                 }
               },
             );
